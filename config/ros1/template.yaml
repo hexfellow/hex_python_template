@@ -1,0 +1,5 @@
+# str
+str_name: "hex"
+
+# int
+int_range: [0, 1000]
