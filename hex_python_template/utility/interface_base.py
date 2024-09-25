@@ -6,26 +6,21 @@
 # Date  : 2024-09-05
 ################################################################
 
-import threading
+import queue
+import typing
 from abc import ABC, abstractmethod
 
 
 class InterfaceBase(ABC):
 
     def __init__(self):
-        ### parameters
+        ### ROS parameters
         self._str_param = {}
         self._int_param = {}
 
-        ### subscribers
-        self._in_str_flag = False
-        self._in_int_flag = False
-        self._in_str = None
-        self._in_int = None
-
-        ### locks
-        self._in_str_lock = threading.Lock()
-        self._in_int_lock = threading.Lock()
+        ### ROS RX msg queues
+        self._in_str_queue = queue.Queue()
+        self._in_int_queue = queue.Queue()
 
     def __del__(self):
         self.shutdown()
@@ -67,24 +62,26 @@ class InterfaceBase(ABC):
     ####################
     # in str
     def has_in_str(self) -> bool:
-        return self._in_str_flag
+        return self._in_str_queue.qsize() > 0
 
     def clear_in_str(self):
-        with self._in_str_lock:
-            self._in_str_flag = False
+        self._in_str_queue.queue.clear()
 
-    def get_in_str(self) -> str:
-        with self._in_str_lock:
-            return self._in_str
+    def get_in_str(self) -> typing.Optional[str]:
+        try:
+            return self._in_str_queue.get_nowait()
+        except queue.Empty:
+            return None
 
     # in int
     def has_in_int(self) -> bool:
-        return self._in_int_flag
+        return self._in_int_queue.qsize() > 0
 
     def clear_in_int(self):
-        with self._in_int_lock:
-            self._in_int_flag = False
+        self._in_int_queue.queue.clear()
 
-    def get_in_int(self) -> int:
-        with self._in_int_lock:
-            return self._in_int
+    def get_in_int(self) -> typing.Optional[int]:
+        try:
+            return self._in_int_queue.get_nowait()
+        except queue.Empty:
+            return None

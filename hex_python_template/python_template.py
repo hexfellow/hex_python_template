@@ -17,10 +17,11 @@ from utility import DataInterface
 class PythonTemplate:
 
     def __init__(self):
-        ### utility
+        ### utility, Create a node called python_template and set the rate to 20Hz
         self.__data_interface = DataInterface("python_template", 20)
 
         ### parameters
+        # This demos how to get parameters from the ROS
         self.__str_param = self.__data_interface.get_str_param()
         self.__int_param = self.__data_interface.get_int_param()
 
@@ -30,13 +31,14 @@ class PythonTemplate:
 
     def run(self):
         while self.__data_interface.ok():
-            if self.__data_interface.has_in_str():
+            # Get data from ros every wake up
+            while self.__data_interface.has_in_str():
                 in_str = self.__data_interface.get_in_str()
                 print(f"in_str: {in_str}")
                 self.__data_interface.clear_in_str()
                 self.__out_str = f"{self.__str_param['name']}: {in_str}"
 
-            if self.__data_interface.has_in_int():
+            while self.__data_interface.has_in_int():
                 in_int = self.__data_interface.get_in_int()
                 print(f"in_int: {in_int}")
                 self.__data_interface.clear_in_int()
