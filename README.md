@@ -1,10 +1,34 @@
 # hex_python_template
 
-**hex_python_template** is a ROS package template designed to seamlessly integrate ROS 1 and ROS 2 Python code.
+## What does this package do
+
+This package demonstrates a structure of writing a python ROS package that can be used in **both ROS 1 and ROS 2**. 
+
+It will wait for input, for string input, it will add a prefix to the input string and publish it to the `/out_str` topic. For int32 input, it will check if the input is within the specified range and publish it to the `/out_int` topic.
+
+To use the demo, run a launch file in the `launch` directory, and publish to the `/in_str` and `/in_int` topics.
 
 ## Maintainer
 
 [Dong Zhaorui](mailto:847235539@qq.com)
+
+## Prerequisites
+
+Ensure the following software and hardware are installed:
+
+* **ROS**:  
+   Refer to the [ROS Installation guide](http://wiki.ros.org/ROS/Installation)
+
+### Verified Platforms
+
+* [x] **x64**
+* [ ] **Jetson Orin Nano**
+* [x] **Jetson Orin NX**
+* [ ] **Jetson AGX Orin**
+* [ ] **Horizon RDK X5**
+* [ ] **Rockchip RK3588**
+
+
 
 ## Public APIs
 
@@ -72,21 +96,6 @@ Follow these steps to set up the project for development and testing on your loc
    source install/setup.bash --extend
    ```
 
-### Verified Platforms
-
-* [ ] **Jetson Orin Nano**
-* [x] **Jetson Orin NX**
-* [ ] **Jetson AGX Orin**
-* [ ] **Horizon RDK X5**
-* [ ] **Rockchip RK3588**
-
-### Prerequisites
-
-Ensure the following software and hardware are installed:
-
-* **ROS**:  
-   Refer to the [ROS Installation guide](http://wiki.ros.org/ROS/Installation)
-
 ### Usage
 
 1. Launch the `python_template` node:
@@ -101,5 +110,5 @@ Ensure the following software and hardware are installed:
    ros2 launch hex_python_template python_template.launch.py
    ```
 
-2. Publish RGB and depth images to the `/in_str` and `/in_int` topics, respectively.
+2. Publish to `/in_str` and `/in_int` topics.
 3. View the output on the `/out_str` and `/out_int` topics.

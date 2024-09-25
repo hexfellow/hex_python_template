@@ -1,7 +1,7 @@
 python_template:
   ros__parameters:
     # str
-    str_name: "hex"
+    str_name: "HexHello! You said:"
 
     # int
     int_range: [0, 1000]
