@@ -43,7 +43,7 @@ Follow these steps to set up the project for development and testing on your loc
 2. Clone the repository:
 
    ```shell
-   git clone https://github.com/IBNBlank/hex_python_template.git
+   git clone https://github.com/hexfellow/hex_python_template.git
    ```
 
 3. Navigate back to the `catkin_ws` directory and build the workspace:
