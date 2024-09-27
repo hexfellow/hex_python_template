@@ -38,6 +38,29 @@ class InterfaceBase(ABC):
         raise NotImplementedError("InterfaceBase.sleep")
 
     ####################
+    ### logging
+    ####################
+    @abstractmethod
+    def logd(self, msg, *args, **kwargs):
+        raise NotImplementedError("logd")
+    
+    @abstractmethod
+    def logi(self, msg, *args, **kwargs):
+        raise NotImplementedError("logi")
+    
+    @abstractmethod
+    def logw(self, msg, *args, **kwargs):
+        raise NotImplementedError("logw")
+    
+    @abstractmethod
+    def loge(self, msg, *args, **kwargs):
+        raise NotImplementedError("loge")
+    
+    @abstractmethod
+    def logf(self, msg, *args, **kwargs):
+        raise NotImplementedError("logf")
+
+    ####################
     ### parameters
     ####################
     def get_str_param(self) -> dict:

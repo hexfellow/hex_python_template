@@ -44,6 +44,22 @@ class DataInterface(InterfaceBase):
                 'int_range').get_parameter_value().integer_array_value,
         }
 
+        ### logging
+        def logd(self, msg, *args, **kwargs):
+            self. __logger.debug(msg, *args, **kwargs)
+
+        def logi(self, msg, *args, **kwargs):
+            self.__logger.info(msg, *args, **kwargs)
+
+        def logw(self, msg, *args, **kwargs):
+            self.__logger.warning(msg, *args, **kwargs)
+        
+        def loge(self, msg, *args, **kwargs):
+            self.__logger.error(msg, *args, **kwargs)
+
+        def logf(self, msg, *args, **kwargs):
+            self.__logger.fatal(msg, *args, **kwargs)
+
         ### publisher
         self.__out_str_pub = self.__node.create_publisher(
             String, 'out_str', 10)
