@@ -26,12 +26,12 @@ class InterfaceBase(ABC):
         self.shutdown()
 
     @abstractmethod
-    def shutdown(self):
-        raise NotImplementedError("InterfaceBase.shutdown")
-
-    @abstractmethod
     def ok(self) -> bool:
         raise NotImplementedError("InterfaceBase.ok")
+    
+    @abstractmethod
+    def shutdown(self):
+        raise NotImplementedError("InterfaceBase.shutdown")
 
     @abstractmethod
     def sleep(self):
@@ -85,7 +85,7 @@ class InterfaceBase(ABC):
     ####################
     # in str
     def has_in_str(self) -> bool:
-        return self._in_str_queue.qsize() > 0
+        return not self._in_str_queue.empty()
 
     def clear_in_str(self):
         self._in_str_queue.queue.clear()
@@ -98,7 +98,7 @@ class InterfaceBase(ABC):
 
     # in int
     def has_in_int(self) -> bool:
-        return self._in_int_queue.qsize() > 0
+        return not self._in_int_queue.empty()
 
     def clear_in_int(self):
         self._in_int_queue.queue.clear()

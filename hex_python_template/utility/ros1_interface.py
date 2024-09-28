@@ -31,22 +31,6 @@ class DataInterface(InterfaceBase):
             "range": rospy.get_param('~int_range'),
         }
 
-        ### logging
-        def logd(self, msg, *args, **kwargs):
-            rospy.logdebug(msg, *args, **kwargs)
-
-        def logi(self, msg, *args, **kwargs):
-            rospy.loginfo(msg, *args, **kwargs)
-
-        def logw(self, msg, *args, **kwargs):
-            rospy.logwarn(msg, *args, **kwargs)
-        
-        def loge(self, msg, *args, **kwargs):
-            rospy.logerr(msg, *args, **kwargs)
-
-        def logf(self, msg, *args, **kwargs):
-            rospy.logfatal(msg, *args, **kwargs)
-
         ### publisher
         self.__out_str_pub = rospy.Publisher('out_str', String, queue_size=10)
         self.__out_int_pub = rospy.Publisher('out_int', Int32, queue_size=10)
@@ -62,11 +46,26 @@ class DataInterface(InterfaceBase):
     def ok(self):
         return not rospy.is_shutdown()
 
+    def shutdown(self):
+        pass
+
     def sleep(self):
         self.__rate.sleep()
 
-    def shutdown(self):
-        pass
+    def logd(self, msg, *args, **kwargs):
+        rospy.logdebug(msg, *args, **kwargs)
+
+    def logi(self, msg, *args, **kwargs):
+        rospy.loginfo(msg, *args, **kwargs)
+
+    def logw(self, msg, *args, **kwargs):
+        rospy.logwarn(msg, *args, **kwargs)
+
+    def loge(self, msg, *args, **kwargs):
+        rospy.logerr(msg, *args, **kwargs)
+
+    def logf(self, msg, *args, **kwargs):
+        rospy.logfatal(msg, *args, **kwargs)
 
     def pub_out_str(self, out: str):
         msg = String()

@@ -44,22 +44,6 @@ class DataInterface(InterfaceBase):
                 'int_range').get_parameter_value().integer_array_value,
         }
 
-        ### logging
-        def logd(self, msg, *args, **kwargs):
-            self. __logger.debug(msg, *args, **kwargs)
-
-        def logi(self, msg, *args, **kwargs):
-            self.__logger.info(msg, *args, **kwargs)
-
-        def logw(self, msg, *args, **kwargs):
-            self.__logger.warning(msg, *args, **kwargs)
-        
-        def loge(self, msg, *args, **kwargs):
-            self.__logger.error(msg, *args, **kwargs)
-
-        def logf(self, msg, *args, **kwargs):
-            self.__logger.fatal(msg, *args, **kwargs)
-
         ### publisher
         self.__out_str_pub = self.__node.create_publisher(
             String, 'out_str', 10)
@@ -77,19 +61,34 @@ class DataInterface(InterfaceBase):
         self.__spin_thread = threading.Thread(target=self.__spin)
         self.__spin_thread.start()
 
+    def __spin(self):
+        rclpy.spin(self.__node)
+
     def ok(self):
         return rclpy.ok()
-
-    def sleep(self):
-        self.__rate.sleep()
 
     def shutdown(self):
         self.__node.destroy_node()
         rclpy.shutdown()
         self.__spin_thread.join()
 
-    def __spin(self):
-        rclpy.spin(self.__node)
+    def sleep(self):
+        self.__rate.sleep()
+
+    def logd(self, msg, *args, **kwargs):
+        self.__logger.debug(msg, *args, **kwargs)
+
+    def logi(self, msg, *args, **kwargs):
+        self.__logger.info(msg, *args, **kwargs)
+
+    def logw(self, msg, *args, **kwargs):
+        self.__logger.warning(msg, *args, **kwargs)
+
+    def loge(self, msg, *args, **kwargs):
+        self.__logger.error(msg, *args, **kwargs)
+
+    def logf(self, msg, *args, **kwargs):
+        self.__logger.fatal(msg, *args, **kwargs)
 
     def pub_out_str(self, out: str):
         msg = String()
